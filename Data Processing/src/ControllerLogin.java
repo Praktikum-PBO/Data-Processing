@@ -17,14 +17,19 @@ public class ControllerLogin {
             public void actionPerformed(ActionEvent e) {
                 String username = viewLogin.getUser();
                 String password = viewLogin.getPassword();
-                modelLogin.setModelLogin(username, password);
-                boolean login = daoLogin.login(modelLogin);
-                if (login) {
-                    MVC mvc = new MVC();
-                    JOptionPane.showMessageDialog(null, "Login Berhasil");
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Harap isi semua field");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Username atau Password Salah");
+                    modelLogin.setModelLogin(username, password);
+                    boolean login = daoLogin.login(modelLogin);
+                    if (login) {
+                        MVC mvc = new MVC();
+                        JOptionPane.showMessageDialog(null, "Login Berhasil");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Username atau Password Salah");
+                    }
                 }
+
             }
         });
     }
