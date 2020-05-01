@@ -19,20 +19,19 @@ public class DAOLogin {
         }
     }
 
-    public void login(ModelLogin modelLogin) {
+    public boolean login(ModelLogin modelLogin) {
         try {
             String query = "SELECT * FROM tb_users WHERE username = '" + modelLogin.getUsername() + "' " + "AND password = '" + modelLogin.getPassword() + "'";
             resultSet = statement.executeQuery(query);
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 if (modelLogin.getUsername().equals(resultSet.getString("username")) && modelLogin.getPassword().equals(resultSet.getString("password"))) {
-                    MVC mvc = new MVC();
-                    JOptionPane.showMessageDialog(null, "Login Berhasil");
+                    return true;
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Username atau Password Salah");
             }
+            return false;
         } catch (Exception sql) {
             JOptionPane.showMessageDialog(null, sql.getMessage());
+            return false;
         }
     }
 }
