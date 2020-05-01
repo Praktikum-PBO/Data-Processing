@@ -1,14 +1,9 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.*;
 import javax.swing.*;
 
 public class ViewLogin extends JFrame {
-    private Connection koneksi;
-    private Statement statement;
-    private ResultSet resultSet;
     JLabel lJudul, lUsername, lPassword;
-    JTextField tfUser, tfPassword;
+    JTextField tfUser;
+    JPasswordField tfPassword;
     JButton bLogin;
 
     public ViewLogin() {
@@ -18,7 +13,7 @@ public class ViewLogin extends JFrame {
         lPassword = new JLabel("Password : ");
 
         tfUser = new JTextField();
-        tfPassword = new JTextField();
+        tfPassword = new JPasswordField();
 
         bLogin = new JButton("Login");
 
@@ -40,38 +35,13 @@ public class ViewLogin extends JFrame {
         setSize(400, 300);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
-        bLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    String url = "jdbc:mysql://localhost/praktikumpbo";
-                    koneksi = DriverManager.getConnection(url, "root", "");
-                    statement = koneksi.createStatement();
-                    try {
-                        String query = "SELECT * FROM tb_users WHERE username = '" + tfUser.getText() + "' "
-                                + "AND password = '" + tfPassword.getText() + "'";
-                        resultSet = statement.executeQuery(query);
-                        if (resultSet.next()) {
-                            if (tfUser.getText().equals(resultSet.getString("username"))
-                                    && tfPassword.getText().equals(resultSet.getString("password"))) {
-                                setVisible(false);
-                                MVC mvc = new MVC();
-                                JOptionPane.showMessageDialog(null, "Login Berhasil");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Username atau Password Salah");
-                        }
-                    } catch (Exception sql) {
-                        JOptionPane.showMessageDialog(null, sql.getMessage());
-                    }
-                } catch (ClassNotFoundException ex) {
-                    JOptionPane.showMessageDialog(null, "Class Not found : " + ex);
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "SQL Exception : " + ex);
-                }
-            }
-        });
+    public String getUser() {
+        return tfUser.getText();
+    }
+
+    public String getPassword() {
+        return tfPassword.getText();
     }
 }

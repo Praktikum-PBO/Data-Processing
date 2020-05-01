@@ -24,7 +24,6 @@ public class DAO {
             statement.executeUpdate(query);
             JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan");
         } catch (Exception sql) {
-            System.out.println(sql.getMessage());
             JOptionPane.showMessageDialog(null, sql.getMessage());
         }
     }
