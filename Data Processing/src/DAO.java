@@ -73,7 +73,7 @@ public class DAO {
         }
     }
 
-    void update(int dataTerpilih, String judul, String tipe, int episode, String genre, String status, int rating) {
+    public void update(int dataTerpilih, String judul, String tipe, int episode, String genre, String status, int rating) {
         try {
             String query = "UPDATE tb_data SET judul = '" + judul + "',tipe = '" + tipe + "', episode = " + episode + ",genre = '" + genre + "', status = '" + status + "', rating = " + rating + " WHERE id = " + dataTerpilih + "";
             statement = koneksi.createStatement();
