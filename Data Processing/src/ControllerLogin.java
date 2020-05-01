@@ -18,7 +18,13 @@ public class ControllerLogin {
                 String username = viewLogin.getUser();
                 String password = viewLogin.getPassword();
                 modelLogin.setModelLogin(username, password);
-                daoLogin.login(modelLogin);
+                boolean login = daoLogin.login(modelLogin);
+                if (login) {
+                    MVC mvc = new MVC();
+                    JOptionPane.showMessageDialog(null, "Login Berhasil");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username atau Password Salah");
+                }
             }
         });
     }
